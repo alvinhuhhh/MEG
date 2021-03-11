@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { Platform, StyleSheet, Image, TouchableOpacity, Text, TextInput, View } from 'react-native';
 
 export function InputField(props) {
+    let empty = '';
     const [value, onChangeText] = useState("What's happening?");
 
     return (
@@ -9,7 +10,7 @@ export function InputField(props) {
             <View style={styles.container}>
                 <TextInput
                 style={styles.textInput}
-                onFocus={text => onChangeText(text)}
+                onFocus={empty => onChangeText(empty)}
                 onChangeText={text => onChangeText(text)}
                 value={value}
                 />
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
     sendButton: {
         height: 35,
         borderRadius: 20,
-        backgroundColor: 'green',
+        backgroundColor: '#006D77',
         alignItems: 'center',
         justifyContent: 'center',
     },
