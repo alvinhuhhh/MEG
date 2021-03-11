@@ -3,33 +3,10 @@ import { Platform, StyleSheet, View, FlatList, Text, TextInput, TouchableOpacity
 import { NavigationContainer } from '@react-navigation/native';
 
 function SMM({ navigation }) {
-    const [value, onChangeText] = useState("");
-    const [posts, setPosts] = useState([
-        {
-            id: '1',
-            title: 'First item',
-        },
-        {
-            id: '2',
-            title: 'Second item',
-        },
-        {
-            id: '3',
-            title: 'Third item',
-        },
-        {
-            id: '4',
-            title: 'Fourth item',
-        },
-        {
-            id: '5',
-            title: 'Fifth item',
-        },
-        {
-            id: '6',
-            title: 'Sixth item',
-        },
-    ])
+    const [text, onChangeText] = useState("");
+    const [username, setUsername] = useState("Ah Boy");
+    const [handle, setHandle] = useState("@ahboy1234");
+    const [posts, setPosts] = useState([]);
 
     function renderItem({ item }) {
         return (
@@ -40,15 +17,15 @@ function SMM({ navigation }) {
 
                 <View style={styles.textarea}>
                     <View style={styles.namefield}>
-                        <Text style={styles.username}>Username</Text>
-                        <Text style={styles.subtitle}>handle+timestamp</Text>
+                        <Text style={styles.username}>{item.username}</Text>
+                        <Text style={styles.subtitle}>{item.handle} • {item.timestamp}</Text>
                     </View>
-                    <Text style={styles.maintext}>this is gonna be a very long text asdhfjasdhfkj asdfhjkasdhfjkads  fajsdfhkjasdf</Text>
-                    <Text style={styles.rating}>Rating</Text>
+                    <Text style={styles.maintext}>{item.maintext}</Text>
+                    <Text style={styles.rating}>Rating: {item.rating}</Text>
                 </View>
             </View>
-        )
-    }
+        );
+    };
 
     function renderSeparator() {
         return (
@@ -60,12 +37,24 @@ function SMM({ navigation }) {
                 alignSelf: 'center',
             }}
             />
-        )
-    }
+        );
+    };
 
-    function onSend() {
-        return;
-    }
+    const onSend = useCallback(() => {
+        let current = posts;
+        let newPost = {
+            id: (posts.length + 1).toString(),
+            username: username,
+            handle: handle,
+            timestamp: (new Date()).toDateString(),
+            maintext: {text}.text,
+            rating: '0.5',
+        };
+        current.unshift(newPost);
+        console.log(current);
+        setPosts(current);
+        onChangeText("");
+    });
 
     return (
         <View style={styles.container}>
@@ -83,7 +72,6 @@ function SMM({ navigation }) {
                     style={styles.textInput}
                     placeholder={"Type your post here..."}
                     onChangeText={text => onChangeText(text)}
-                    value={value}
                     />
                     <TouchableOpacity
                     style={styles.send}
@@ -99,7 +87,7 @@ function SMM({ navigation }) {
             </View>
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -138,7 +126,7 @@ const styles = StyleSheet.create({
     subtitle: {
         color: '#8f8f8f',
         fontSize: 12,
-        paddingLeft: 3,
+        paddingLeft: 5,
         paddingBottom: 3,
     },
     maintext: {
