@@ -24,7 +24,7 @@ function MenuPage({ navigation }) {
 
                 <TouchableOpacity
                 style={styles.touchable}
-                onPress={() => navigation.navigate('Monitor')}>
+                onPress={() => navigation.navigate('Social Media Monitor')}>
                     <Image
                     style={styles.image}
                     source={require('../assets/SocialMediaGraphic.png')}/>

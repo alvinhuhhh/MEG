@@ -43,7 +43,7 @@ export default function App() {
           options={{}}/>
 
         <Stack.Screen 
-          name="Monitor" 
+          name="Social Media Monitor" 
           component={SMM}
           options={{}}/>
 
