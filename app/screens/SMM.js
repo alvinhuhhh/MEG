@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { Platform, StyleSheet, View, FlatList, Text } from 'react-native';
+import { Platform, StyleSheet, View, FlatList, Text, TextInput, TouchableOpacity, } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { InputField } from '../Components/InputField.js';
 
 function SMM({ navigation }) {
+    const [value, onChangeText] = useState("");
     const [posts, setPosts] = useState([
         {
             id: '1',
@@ -63,6 +63,10 @@ function SMM({ navigation }) {
         )
     }
 
+    function onSend() {
+        return;
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.feed}>
@@ -73,7 +77,26 @@ function SMM({ navigation }) {
                 ItemSeparatorComponent={renderSeparator}
                 />
             </View>
-            <InputField style={styles.input}/>
+            <View style={styles.input}>
+                <View style={styles.inputField}>
+                    <TextInput
+                    style={styles.textInput}
+                    placeholder={"Type your post here..."}
+                    onChangeText={text => onChangeText(text)}
+                    value={value}
+                    />
+                    <TouchableOpacity
+                    style={styles.send}
+                    onPress={onSend}
+                    >
+                        <View
+                        style={styles.sendButton}
+                        >
+                            <Text style={{color: '#fff'}}>POST</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+            </View>
         </View>
     );
 }
@@ -113,7 +136,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     subtitle: {
-        color: '#fff',
+        color: '#8f8f8f',
         fontSize: 12,
         paddingLeft: 3,
         paddingBottom: 3,
@@ -126,6 +149,26 @@ const styles = StyleSheet.create({
     rating: {
         color: '#fff',
         fontSize: 14,
+    },
+    inputField: {
+        flex: 100,
+        flexDirection: 'row',
+        backgroundColor: '#fff',
+        alignItems: 'center',
+    },
+    textInput: {
+        flex: 80,
+        padding: 10,
+    },
+    send: {
+        flex: 20,
+    },
+    sendButton: {
+        height: 35,
+        borderRadius: 20,
+        backgroundColor: '#006D77',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
 });
 
